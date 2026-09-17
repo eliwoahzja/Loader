@@ -2220,6 +2220,21 @@
 
     move-result-object p1
 
+    # E's Loader: remote config override - econfig.json wins over native list
+    move-object v3, p0
+
+    check-cast v3, Landroid/content/Context;
+
+    invoke-static {v3}, Lzenxveld/loader/EConfig;->fetchAndTransform(Landroid/content/Context;)Ljava/lang/String;
+
+    move-result-object v3
+
+    if-eqz v3, :cond_ec
+
+    move-object p1, v3
+
+    :cond_ec
+
     invoke-static {p1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object p1
