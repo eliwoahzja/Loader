@@ -2454,6 +2454,38 @@
 
     .line 370
     :cond_6
+    # E's Loader: cache short-circuit - cached library skips download entirely
+    move-object v0, p0
+
+    check-cast v0, Landroid/content/Context;
+
+    iget-object v1, p0, Lzenxveld/loader/MainActivity;->downloadURL:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Lzenxveld/loader/EUtils;->isCached(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_e
+
+    move-object v0, p0
+
+    check-cast v0, Landroid/content/Context;
+
+    iget-object v1, p0, Lzenxveld/loader/MainActivity;->downloadURL:Ljava/lang/String;
+
+    invoke-static {v0, v1}, Lzenxveld/loader/EUtils;->materializeIfCached(Landroid/content/Context;Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_e
+
+    iget-object v0, p0, Lzenxveld/loader/MainActivity;->fileName:Ljava/lang/String;
+
+    invoke-direct {p0, v0}, Lzenxveld/loader/MainActivity;->injectLibrary(Ljava/lang/String;)V
+
+    return-void
+
+    :cond_e
     move-object v0, p0
 
     check-cast v0, Landroid/content/Context;
@@ -2473,6 +2505,16 @@
 
 .method private static final proceedWithDownload$lambda$8(Lzenxveld/loader/MainActivity;Z)Lkotlin/Unit;
     .locals 8
+
+    # E's Loader: stash a per-URL copy so this library shows READY next time
+    move-object v0, p0
+
+    check-cast v0, Landroid/content/Context;
+
+    iget-object v1, p0, Lzenxveld/loader/MainActivity;->downloadURL:Ljava/lang/String;
+
+    invoke-static {v0, v1, p1}, Lzenxveld/loader/EUtils;->stashAfterDownload(Landroid/content/Context;Ljava/lang/String;Z)Z
+
 
     .line 371
     const-string v0, "loginButton"
@@ -3335,6 +3377,37 @@
 
 
 # virtual methods
+
+.method public decorateServerName(ILjava/lang/String;)Ljava/lang/String;
+    .locals 3
+
+    # E's Loader: append READY/NEW tag based on per-URL cache state.
+    # Matches adapter index math: serverNameList.get(i) -> JSONObject -> NAME.
+    iget-object v0, p0, Lzenxveld/loader/MainActivity;->filteredServersList:Ljava/util/List;
+
+    invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lorg/json/JSONObject;
+
+    const-string v1, "DOWNLOAD"
+
+    invoke-virtual {v0, v1}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    move-object v1, p0
+
+    check-cast v1, Landroid/content/Context;
+
+    invoke-static {v1, p2, v0}, Lzenxveld/loader/EUtils;->decorate(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public final native fetchJsonFromUrl()Ljava/lang/String;
 .end method
 

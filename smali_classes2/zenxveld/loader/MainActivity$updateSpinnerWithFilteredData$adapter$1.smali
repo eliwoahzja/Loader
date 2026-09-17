@@ -195,6 +195,14 @@
 
     move-result-object v1
 
+    # E's Loader: decorate dropdown text with READY/NEW (index p1, name v1)
+    iget-object v2, p0, Lzenxveld/loader/MainActivity$updateSpinnerWithFilteredData$adapter$1;->this$0:Lzenxveld/loader/MainActivity;
+
+    invoke-virtual {v2, p1, v1}, Lzenxveld/loader/MainActivity;->decorateServerName(ILjava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+
     check-cast v1, Ljava/lang/CharSequence;
 
     invoke-virtual {p3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V

@@ -91,6 +91,11 @@
 .method public final getDetectedVPN()Ljava/lang/String;
     .locals 8
 
+    # E's Loader: VPN gate removed — always report no VPN
+    const/4 v0, 0x0
+
+    return-object v0
+
     .line 40
     const-string v0, "getName(...)"
 
