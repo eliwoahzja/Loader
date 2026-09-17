@@ -7,8 +7,8 @@ sdkInfo:
   minSdkVersion: 28
   targetSdkVersion: 35
 versionInfo:
-  versionCode: 20260211
-  versionName: E-1.2
+  versionCode: 20260212
+  versionName: E-1.3
 resourcesInfo:
   packageId: 127
 doNotCompress:

@@ -3625,6 +3625,11 @@
 
     iput-object p1, p0, Lzenxveld/loader/MainActivity;->appBanner:Landroid/widget/ImageView;
 
+    # E's Loader FX: pulsing banner glow
+    iget-object v5, p0, Lzenxveld/loader/MainActivity;->appBanner:Landroid/widget/ImageView;
+
+    invoke-static {v5}, Lzenxveld/loader/Efx;->startBannerPulse(Landroid/widget/ImageView;)V
+
     .line 102
     const-string p1, "loaderPrefs"
 

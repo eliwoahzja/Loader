@@ -1,0 +1,11 @@
+{
+  "libraries": [
+    {
+      "name": "EXAMPLE - replace me",
+      "version": "1.0",
+      "arch": "64bit",
+      "game": "com.garena.game.codm",
+      "libraryUrl": "https://example.com/libexample.so"
+    }
+  ]
+}
